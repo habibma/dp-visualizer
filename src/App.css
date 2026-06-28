@@ -13,3 +13,10 @@
     flex: 0 0 auto;
   }
 }
+
+.control-panel {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
