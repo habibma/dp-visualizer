@@ -41,6 +41,11 @@ const Main = () => {
     }
   }
 
+  const handleReset = () => {
+    setPage(0)
+    //setIsWelcomePage(true)
+  }
+
   return (
     <main>
       {isWelcomePage ? (
@@ -48,8 +53,10 @@ const Main = () => {
       ) :
         <>
           <div className="control-panel">
+            <Button onClick={() => {}}>Generate Grid</Button>
             <Button onClick={handleBack}>Back</Button>
             <Button onClick={handleForward}>Forward</Button>
+            <Button onClick={handleReset}>Reset</Button>
           </div>
           <Page page={page} />
         </>
