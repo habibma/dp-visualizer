@@ -4,6 +4,7 @@ import Page from './pages/Page'
 import Footer from './components/Footer'
 import Button from './components/Button'
 import './App.css'
+import { generateRandomGrid } from './utils/gridGenarator'
 
 const WelcomePage = ({ onClick }: { onClick: () => void }) => {
 	return (
@@ -28,6 +29,7 @@ const WelcomePage = ({ onClick }: { onClick: () => void }) => {
 const Main = () => {
   const [isWelcomePage, setIsWelcomePage] = useState(true)
   const [page, setPage] = useState(0)
+  const [grid, setGrid] = useState<string[][]>([])
 
   const handleBack = () => {
     if (page > 0) {
@@ -46,6 +48,13 @@ const Main = () => {
     //setIsWelcomePage(true)
   }
 
+  const handleGenerateGrid = () => {
+    // Logic to generate the grid goes here
+    setPage(0)
+    const grid = generateRandomGrid()
+    setGrid(grid)
+  }
+
   return (
     <main>
       {isWelcomePage ? (
@@ -53,12 +62,12 @@ const Main = () => {
       ) :
         <>
           <div className="control-panel">
-            <Button onClick={() => {}}>Generate Grid</Button>
+            <Button onClick={handleGenerateGrid}>Generate Grid</Button>
             <Button onClick={handleBack}>Back</Button>
             <Button onClick={handleForward}>Forward</Button>
             <Button onClick={handleReset}>Reset</Button>
           </div>
-          <Page page={page} />
+          <Page page={page} grid={grid} />
         </>
       }
     </main>
