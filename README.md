@@ -10,7 +10,7 @@ An interactive visualization of Dynamic Programming using the Biggest Square (BS
 
 ## Technologies
 
-- React
+- React + TypeScript
 - JSX
 - CSS
 
