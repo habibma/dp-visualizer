@@ -4,7 +4,7 @@ import Page from './pages/Page'
 import Footer from './components/Footer'
 import Button from './components/Button'
 import './App.css'
-import { generateRandomGrid } from './utils/gridGenarator'
+import generateRandomGrid from './utils/gridGenarator'
 
 const WelcomePage = ({ onClick }: { onClick: () => void }) => {
 	return (
@@ -28,29 +28,28 @@ const WelcomePage = ({ onClick }: { onClick: () => void }) => {
 
 const Main = () => {
   const [isWelcomePage, setIsWelcomePage] = useState(true)
-  const [page, setPage] = useState(0)
+  const [step, setStep] = useState(0)
   const [grid, setGrid] = useState<string[][]>([])
 
   const handleBack = () => {
-    if (page > 0) {
-      setPage(page - 1)
+    if (step > 0) {
+      setStep(step - 1)
     }
   }
 
   const handleForward = () => {
-    if (page < 1) {
-      setPage(page + 1)
-    }
+    if (step < grid?.length * grid[0]?.length - 1)
+      setStep(step + 1)
   }
 
   const handleReset = () => {
-    setPage(0)
+    setStep(0)
     //setIsWelcomePage(true)
   }
 
   const handleGenerateGrid = () => {
     // Logic to generate the grid goes here
-    setPage(0)
+    setStep(0)
     const grid = generateRandomGrid()
     setGrid(grid)
   }
@@ -67,7 +66,7 @@ const Main = () => {
             <Button onClick={handleForward}>Forward</Button>
             <Button onClick={handleReset}>Reset</Button>
           </div>
-          <Page page={page} grid={grid} />
+          <Page step={step} grid={grid}  />
         </>
       }
     </main>

@@ -1,5 +1,5 @@
 
-export function generateRandomGrid(): string[][] {
+function generateRandomGrid(): string[][] {
     const size = Math.floor(Math.random() * 5) + 5; // a random grid size between 5 and 9
     const grid: string[][] = Array.from({ length: size }, () => Array(size).fill('.'))
     grid.forEach((row, i) => {
@@ -11,3 +11,5 @@ export function generateRandomGrid(): string[][] {
     })
     return grid
   }
+
+  export default generateRandomGrid
