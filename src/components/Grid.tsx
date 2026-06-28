@@ -14,7 +14,7 @@ const Grid = ({ grid }: { grid: string[][]; }) => {
 	return (
 		<div className="grid" style={gridStyle}>
 			{grid.map((row, i) => (
-				<div key={i} className="row">
+				<div key={i}  style={{ display: 'contents' }}>
 					{row.map((cell, j) => {
 						return <Cell key={j} value={cell} />;
 					})}

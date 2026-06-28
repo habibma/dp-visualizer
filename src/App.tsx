@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Header from './components/Header'
 import Page from './pages/Page'
 import Footer from './components/Footer'
 import Button from './components/Button'
 import './App.css'
 import generateRandomGrid from './utils/gridGenarator'
+import min3 from './utils/min3'
 
 const WelcomePage = ({ onClick }: { onClick: () => void }) => {
 	return (
@@ -29,12 +30,26 @@ const WelcomePage = ({ onClick }: { onClick: () => void }) => {
 const Main = () => {
   const [isWelcomePage, setIsWelcomePage] = useState(true)
   const [step, setStep] = useState(0)
-  const [grid, setGrid] = useState<string[][]>([])
+  const [grid, setGrid] = useState<string[][]>(() => generateRandomGrid())
 
   const handleBack = () => {
     if (step > 0) {
       setStep(step - 1)
     }
+  }
+
+  function changeCell(step: number) {
+    const row = Math.floor(step / grid[0]?.length)
+    const col = step % grid[0]?.length
+    const newGrid = [...grid]
+    if (newGrid[row][col] === '0') {
+      newGrid[row][col] = '0'
+    } else if (row === 0 || col === 0) {
+      newGrid[row][col] = '1'
+    }
+    else
+      newGrid[row][col] = ( min3(newGrid[row - 1][col], newGrid[row][col - 1], newGrid[row - 1][col - 1]) + 1).toString()
+    setGrid(newGrid)
   }
 
   const handleForward = () => {
@@ -49,10 +64,15 @@ const Main = () => {
 
   const handleGenerateGrid = () => {
     // Logic to generate the grid goes here
+    setGrid(generateRandomGrid())
     setStep(0)
-    const grid = generateRandomGrid()
-    setGrid(grid)
   }
+
+  useEffect(() => {
+    if (step > 0) {
+      changeCell(step - 1);
+    }
+  }, [step]);
 
   return (
     <main>
