@@ -81,7 +81,7 @@ const Main = () => {
       ) :
         <>
           <div className="control-panel">
-            <Button onClick={handleGenerateGrid}>Generate Grid</Button>
+            <Button onClick={handleGenerateGrid}>New Grid</Button>
             <Button onClick={handleBack}>Back</Button>
             <Button onClick={handleForward}>Forward</Button>
             <Button onClick={handleReset}>Reset</Button>
