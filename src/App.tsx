@@ -57,10 +57,10 @@ const Main = () => {
       setStep(step + 1)
   }
 
-  const handleReset = () => {
-    setStep(0)
-    //setIsWelcomePage(true)
-  }
+  // const handleReset = () => {
+  //   setStep(0)
+  //   setGrid(generateRandomGrid())
+  // }
 
   const handleGenerateGrid = () => {
     // Logic to generate the grid goes here
@@ -84,7 +84,7 @@ const Main = () => {
             <Button onClick={handleGenerateGrid}>New Grid</Button>
             <Button onClick={handleBack}>Back</Button>
             <Button onClick={handleForward}>Forward</Button>
-            <Button onClick={handleReset}>Reset</Button>
+            {/* <Button onClick={handleReset}>Reset</Button> */}
           </div>
           <Page step={step} grid={grid}  />
         </>
