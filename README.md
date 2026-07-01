@@ -2,8 +2,6 @@
 
 An interactive, step-by-step visualization of the **Largest Square (Maximal Square) Dynamic Programming algorithm**. Watch how the algorithm computes the size of the largest square of available (non-obstacle) cells for each position in the grid.
 
-Live demo: https://dp-visualizer.netlify.app/
-
 ## Features
 
 - **Step-by-step execution**: Navigate forward and backward through the algorithm computation
