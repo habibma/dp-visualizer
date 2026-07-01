@@ -18,34 +18,26 @@ const Code = () => {
 	else
 		return c;
 }
-int solve(char grid[][], int row, int col)
+void solve(int grid[][], int row, int col)
 {
-  int maxRow = 0;
-  int maxCol = 0;
-  int maxSize = 0;
   for (int i = 0; i < row; i++) {
     for (int j = 0; j < col; j++) {
-      if (i == 0 || j == 0) {
-        grid[i][j] = '1';
-      } else {
-        grid[i][j] = '0';
+      // Skip obstacles
+      if (grid[i][j] == 0) {
+        continue;
       }
-	else if (grid[i][j] == '0') {
-		grid[i][j] = '0';
-	}
-	else {
-	    grid[i][j] = (min3(grid[i - 1][j],
-			grid[i][j - 1],
-			grid[i - 1][j - 1])
-			+ 1);
-  	}
-	if (grid[i][j] > maxSize) {
-		maxSize = grid[i][j];
-		maxRow = i;
-		maxCol = j;
-	 }
-	}
- }
+      // First row or column: set to 1
+      if (i == 0 || j == 0) {
+        grid[i][j] = 1;
+      }
+      // Otherwise: min of three neighbors + 1
+      else {
+        grid[i][j] = min3(grid[i - 1][j],
+                         grid[i][j - 1],
+                         grid[i - 1][j - 1]) + 1;
+      }
+    }
+  }
 }`
 					}
 				</code>
@@ -54,18 +46,18 @@ int solve(char grid[][], int row, int col)
 	)
 }
 
-const Explaination = () => {
+const Explanation = () => {
 	return (
-		<div className="explaination flex-child">
+		<div className="explanation flex-child">
 			<h2>Explanation</h2>
-			<p>The code iterates through the grid to find the largest square which is ending at each cell.</p>
+			<p>This algorithm computes the size of the largest square of available cells (non-obstacles) with the current cell as the bottom-right corner.</p>
 			<p>For each cell:</p>
 			<ul>
-				<li><strong>IF</strong> the current cell is in the first row or first column, it is set to 1;</li>
-				<li><strong>ELSE IF</strong> it is a '0', it is an obstacle in the original grid;</li>
-				<li><strong>ELSE</strong> it is set to the minimum of the three neighboring cells plus 1.</li>
+				<li><strong>IF</strong> the cell is an obstacle (0), skip it;</li>
+				<li><strong>ELSE IF</strong> in the first row or column, the largest square is 1;</li>
+				<li><strong>ELSE</strong> the largest square is 1 + the minimum of the three neighboring cells (top, left, top-left).</li>
 			</ul>
-			<p>While iterating through the grid, it keeps track of the maximum size of the square found so far and its position.</p>
+			<p>Each step fills one cell with this computed value, building up the solution from top-left to bottom-right.</p>
 		</div>
 	)
 }
@@ -82,7 +74,7 @@ function Page({ step, grid }: { step: number; grid: string[][]; }) {
 					<h2>Grid</h2>
 					<Grid grid={grid} />
 				</div>
-				<Explaination />
+				<Explanation />
 			</div>
 		</section>
 	)

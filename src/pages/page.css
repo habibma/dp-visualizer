@@ -46,17 +46,18 @@ code {
     scrollbar-width: thin;
 }
 
-.explaination {
-    font-size: .8em;
+.explanation {
+    font-size: .9em;
     line-height: 1.5;
     text-align: left;
 
     p {
         margin-bottom: 10px;
+        justify-content: justify;
     }
 
     ul {
-        padding-left: 2px;
+        padding-left: 1px;
     }
 
     strong {
