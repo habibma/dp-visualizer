@@ -9,7 +9,7 @@ const Code = () => {
 			<pre>
 				<code lang='c'>
 					{
-`int min3(int a, int b, int c)
+						`int min3(int a, int b, int c)
 {
 	if (a <= b && a <= c)
 		return a;
@@ -62,12 +62,9 @@ const Explanation = () => {
 	)
 }
 
-function Page({ step, grid }: { step: number; grid: string[][]; }) {
+function Page({ grid }: { grid: string[][]; }) {
 	return (
 		<section className="page">
-			<div>
-				<h2>Step {step}</h2>
-			</div>
 			<div className="flex-container">
 				<Code />
 				<div className="flex-child">

@@ -70,6 +70,10 @@ const Main = () => {
     setStep((currentStep) => Math.min(currentStep + 1, maxStep))
   }
 
+  const handleReset = () => {
+    setStep(currentStep => Math.max(currentStep - currentStep, 0))
+  }
+
   const handleGenerateGrid = () => {
     const nextGrid = generateRandomGrid()
     setGridHistory(buildGridHistory(nextGrid))
@@ -86,6 +90,10 @@ const Main = () => {
             <Button onClick={handleGenerateGrid}>New Grid</Button>
             <Button onClick={handleBack} disabled={step === 0}>Back</Button>
             <Button onClick={handleForward} disabled={step === maxStep}>Forward</Button>
+            <Button onClick={handleReset} disabled={step === 0}>Reset</Button>
+          </div>
+          <div className="step-indicator">
+            Step {step} of {maxStep}
           </div>
           <Page step={step} grid={currentGrid}  />
         </>
