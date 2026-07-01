@@ -1,6 +1,6 @@
 import Cell from './Cell'
 
-const Grid = ({ grid }: { grid: string[][]; }) => {
+const Grid = ({ grid, activeRow, activeCol }: { grid: string[][]; activeRow?: number; activeCol?: number }) => {
 
 	const gridStyle = {
 		display: 'grid',
@@ -10,13 +10,14 @@ const Grid = ({ grid }: { grid: string[][]; }) => {
 		gap: '0px',
 		minHeight: '300px',
 	}
-	
+
 	return (
 		<div className="grid" style={gridStyle}>
 			{grid.map((row, i) => (
 				<div key={i}  style={{ display: 'contents' }}>
 					{row.map((cell, j) => {
-						return <Cell key={j} value={cell} />;
+						const isActive = activeRow === i && activeCol === j
+						return <Cell key={j} value={cell} isActive={isActive} />;
 					})}
 				</div>
 			))}

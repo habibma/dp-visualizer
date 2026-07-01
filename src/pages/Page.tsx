@@ -62,14 +62,14 @@ const Explanation = () => {
 	)
 }
 
-function Page({ grid }: { grid: string[][]; }) {
+function Page({ grid, activeRow, activeCol }: { grid: string[][]; activeRow?: number; activeCol?: number }) {
 	return (
 		<section className="page">
 			<div className="flex-container">
 				<Code />
 				<div className="flex-child">
 					<h2>Grid</h2>
-					<Grid grid={grid} />
+					<Grid grid={grid} activeRow={activeRow} activeCol={activeCol} />
 				</div>
 				<Explanation />
 			</div>

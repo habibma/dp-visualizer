@@ -95,7 +95,12 @@ const Main = () => {
           <div className="step-indicator">
             Step {step} of {maxStep}
           </div>
-          <Page step={step} grid={currentGrid}  />
+            {(() => {
+              const cols = currentGrid[0]?.length ?? 0
+              const activeRow = Math.floor((step - 1) / cols)
+              const activeCol = (step - 1) % cols
+              return <Page grid={currentGrid} activeRow={activeRow} activeCol={activeCol} />
+            })()}
         </>
       }
     </main>
