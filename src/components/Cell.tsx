@@ -1,8 +1,9 @@
 const Cell = ({ value, isActive = false }: { value: string; isActive?: boolean }) => {
+	const cellSize = 'clamp(22px, 3.5vw, 30px)'
 
 	const cellStyle = {
-		width: '30px',
-		height: '30px',
+		width: cellSize,
+		height: cellSize,
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
