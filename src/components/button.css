@@ -14,4 +14,10 @@
 	&:hover {
 		background-color: var(--button-hover-bg);
 	}
+
+	&:disabled {
+		cursor: default;
+		opacity: 0.55;
+		background-color: var(--button-hover-bg);
+	}
 }

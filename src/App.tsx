@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Header from './components/Header'
 import Page from './pages/Page'
 import Footer from './components/Footer'
@@ -6,6 +6,34 @@ import Button from './components/Button'
 import './App.css'
 import generateRandomGrid from './utils/gridGenarator'
 import min3 from './utils/min3'
+
+type Grid = string[][]
+
+const cloneGrid = (grid: Grid): Grid => grid.map((row) => [...row])
+
+const buildGridHistory = (obstacleGrid: Grid): Grid[] => {
+  const history: Grid[] = [cloneGrid(obstacleGrid)]
+  const workingGrid = cloneGrid(obstacleGrid)
+  const rows = workingGrid.length
+  const cols = workingGrid[0]?.length ?? 0
+
+  for (let index = 0; index < rows * cols; index += 1) {
+    const row = Math.floor(index / cols)
+    const col = index % cols
+
+    if (workingGrid[row][col] !== '0') {
+      if (row === 0 || col === 0) {
+        workingGrid[row][col] = '1'
+      } else {
+        workingGrid[row][col] = (min3(workingGrid[row - 1][col], workingGrid[row][col - 1], workingGrid[row - 1][col - 1]) + 1).toString()
+      }
+    }
+
+    history.push(cloneGrid(workingGrid))
+  }
+
+  return history
+}
 
 const WelcomePage = ({ onClick }: { onClick: () => void }) => {
 	return (
@@ -29,50 +57,24 @@ const WelcomePage = ({ onClick }: { onClick: () => void }) => {
 
 const Main = () => {
   const [isWelcomePage, setIsWelcomePage] = useState(true)
+  const [gridHistory, setGridHistory] = useState<Grid[]>(() => buildGridHistory(generateRandomGrid()))
   const [step, setStep] = useState(0)
-  const [grid, setGrid] = useState<string[][]>(() => generateRandomGrid())
+  const currentGrid = gridHistory[step] ?? gridHistory[0] ?? []
+  const maxStep = Math.max(gridHistory.length - 1, 0)
 
   const handleBack = () => {
-    if (step > 0) {
-      setStep(step - 1)
-    }
-  }
-
-  function changeCell(step: number) {
-    const row = Math.floor(step / grid[0]?.length)
-    const col = step % grid[0]?.length
-    const newGrid = [...grid]
-    if (newGrid[row][col] === '0') {
-      newGrid[row][col] = '0'
-    } else if (row === 0 || col === 0) {
-      newGrid[row][col] = '1'
-    }
-    else
-      newGrid[row][col] = ( min3(newGrid[row - 1][col], newGrid[row][col - 1], newGrid[row - 1][col - 1]) + 1).toString()
-    setGrid(newGrid)
+    setStep((currentStep) => Math.max(currentStep - 1, 0))
   }
 
   const handleForward = () => {
-    if (step < grid?.length * grid[0]?.length - 1)
-      setStep(step + 1)
+    setStep((currentStep) => Math.min(currentStep + 1, maxStep))
   }
-
-  // const handleReset = () => {
-  //   setStep(0)
-  //   setGrid(generateRandomGrid())
-  // }
 
   const handleGenerateGrid = () => {
-    // Logic to generate the grid goes here
-    setGrid(generateRandomGrid())
+    const nextGrid = generateRandomGrid()
+    setGridHistory(buildGridHistory(nextGrid))
     setStep(0)
   }
-
-  useEffect(() => {
-    if (step > 0) {
-      changeCell(step - 1);
-    }
-  }, [step]);
 
   return (
     <main>
@@ -82,11 +84,10 @@ const Main = () => {
         <>
           <div className="control-panel">
             <Button onClick={handleGenerateGrid}>New Grid</Button>
-            <Button onClick={handleBack}>Back</Button>
-            <Button onClick={handleForward}>Forward</Button>
-            {/* <Button onClick={handleReset}>Reset</Button> */}
+            <Button onClick={handleBack} disabled={step === 0}>Back</Button>
+            <Button onClick={handleForward} disabled={step === maxStep}>Forward</Button>
           </div>
-          <Page step={step} grid={grid}  />
+          <Page step={step} grid={currentGrid}  />
         </>
       }
     </main>

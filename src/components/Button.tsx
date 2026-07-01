@@ -1,8 +1,8 @@
 import './button.css'
 
-const Button = ({ onClick, children }: { onClick: () => void, children: React.ReactNode }) => {
+const Button = ({ onClick, children, disabled = false }: { onClick: () => void, children: React.ReactNode, disabled?: boolean }) => {
   return (
-    <button className="btn" onClick={onClick}>
+    <button className="btn" onClick={onClick} disabled={disabled}>
       {children}
     </button>
   )
