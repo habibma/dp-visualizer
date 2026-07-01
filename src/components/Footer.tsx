@@ -2,7 +2,7 @@
 const Footer = () => {
   return (
     <footer className="footer">
-      <small>Developed by <a href="#">Habib Mote</a></small>
+      <small>Developed by <a href="https://github.com/habibma">Habib Mote</a></small>
     </footer>
   )
 }
