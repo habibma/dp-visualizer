@@ -20,3 +20,25 @@
   gap: 10px;
   margin-bottom: 20px;
 }
+
+.welcome-section {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.welcome-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.features-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.features-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}

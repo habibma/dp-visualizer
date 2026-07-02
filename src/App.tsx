@@ -38,11 +38,11 @@ const buildGridHistory = (obstacleGrid: Grid): Grid[] => {
 const WelcomePage = ({ onClick }: { onClick: () => void }) => {
 	return (
 		<>
-			<section>
+			<section className="welcome-section">
 				<h2>Welcome to the DP Visualizer!</h2>
 				<p>This application allows you to visualize dynamic programming algorithms step by step.</p>
 			</section>
-			<section>
+			<section className="features-section">
 				<h2>Features</h2>
 				<ul>
 					<li>Visualize dynamic programming algorithms</li>
